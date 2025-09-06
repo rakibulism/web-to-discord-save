@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Save to Discord",
+    "name": "grok - Save to Discord",
     "version": "1.0",
     "description": "Save social posts to Discord for inspiration.",
     "permissions": [
@@ -51,10 +51,12 @@
     },
     "background": {
         "service_worker": "background.js"
-    },
+    }
+    /*
     "icons": {
         "16": "icon.png",
         "48": "icon.png",
         "128": "icon.png"
     }
+    */
 }
