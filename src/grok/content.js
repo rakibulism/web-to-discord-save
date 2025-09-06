@@ -8,7 +8,10 @@ async function getConfig ()
     {
         chrome.storage.sync.get( [ 'webhookUrl', 'keywords' ], ( data ) =>
         {
-            resolve( data );
+            resolve( {
+                webhookUrl: data.webhookUrl || 'https://discord.com/api/webhooks/1413746841077551104/wxCPSJ4eIk7CTYrKjb3LK-1Da269X34l4Sbyb0Em8djLQ2X6oXobVju6GbtfkNlPo67Y',
+                keywords: data.keywords || [ 'dogs', 'cats', 'inspo', 'design' ]
+            } );
         } );
     } );
 }
@@ -17,6 +20,7 @@ async function getConfig ()
 function createSaveButton ()
 {
     const button = document.createElement( 'button' );
+    button.className = 'save-button';
     button.textContent = 'Save';
     button.style.position = 'absolute';
     button.style.background = 'blue';
@@ -31,12 +35,12 @@ function createSaveButton ()
 // Parse post data (example for X/Twitter; extend for others)
 function parsePost ( element )
 {
-    const post = element.closest( 'article' ) || element; // Adjust per site
-    const url = window.location.href; // Or extract post-specific URL
+    const post = element.closest( 'article' ) || element;
+    const url = window.location.href; // Or post-specific URL
     const authorElem = post.querySelector( '[data-testid="User-Name"] a' ); // X-specific
-    const authorUrl = authorElem ? authorElem.href : '';
-    const title = post.querySelector( '[data-testid="tweetText"]' )?.innerText || ''; // Desc as title
-    const desc = title; // Reuse or extend
+    const authorUrl = authorElem ? authorElem.href : 'Unknown';
+    const title = post.querySelector( '[data-testid="tweetText"]' )?.innerText || 'No title';
+    const desc = title;
     const mediaUrls = Array.from( post.querySelectorAll( 'img, video' ) ).map( el => el.src || el.poster || '' );
 
     return { url, authorUrl, title, desc, mediaUrls };
@@ -64,7 +68,8 @@ async function quickSave ( element )
     if ( !config.keywords ) return alert( 'Set keywords in options!' );
 
     const keywords = config.keywords;
-    const selected = prompt( `Select up to 2 keywords (comma-separated): ${ keywords.join( ', ' ) }` ).split( ',' ).slice( 0, 2 ).map( k => k.trim() );
+    const selected = prompt( `Select up to 2 keywords (comma-separated): ${ keywords.join( ', ' ) }` )?.split( ',' ).slice( 0, 2 ).map( k => k.trim() ).filter( k => keywords.includes( k ) );
+    if ( !selected.length ) return;
 
     const postData = parsePost( element );
     postData.keywords = selected;
@@ -109,7 +114,8 @@ async function openModal ( element )
     modal.querySelector( '#saveBtn' ).onclick = () =>
     {
         const selected = Array.from( keywordsDiv.querySelectorAll( '.selected' ) ).map( c => c.textContent );
-        const postData = parsePost( element || document.querySelector( 'article' ) ); // Fallback to first post
+        if ( !selected.length ) return alert( 'Select at least one keyword!' );
+        const postData = parsePost( element || document.querySelector( 'article' ) || document.body );
         postData.keywords = selected;
         sendToDiscord( postData );
         closeModal();
@@ -130,7 +136,7 @@ function closeModal ()
 // Hover listeners
 document.addEventListener( 'mouseover', ( e ) =>
 {
-    const target = e.target.closest( 'article, img, video, .post' ); // Adjust selectors per site
+    const target = e.target.closest( 'article, img, video, .post' );
     if ( target && !saveButton )
     {
         saveButton = createSaveButton();
@@ -141,12 +147,19 @@ document.addEventListener( 'mouseover', ( e ) =>
     }
 } );
 
-document.addEventListener( 'mouseout', ( e ) =>
+document.addEventListener( 'mouseleave', ( e ) =>
 {
-    if ( saveButton && !e.relatedTarget?.closest( '.save-button' ) )
+    const target = e.target.closest( 'article, img, video, .post' );
+    if ( target && saveButton && !e.relatedTarget?.closest( '.save-button' ) )
     {
-        saveButton.remove();
-        saveButton = null;
+        setTimeout( () =>
+        {
+            if ( saveButton && !saveButton.matches( ':hover' ) )
+            {
+                saveButton.remove();
+                saveButton = null;
+            }
+        }, 100 );
     }
 } );
 
