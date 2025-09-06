@@ -1,0 +1,60 @@
+{
+    "manifest_version": 3,
+    "name": "Save to Discord",
+    "version": "1.0",
+    "description": "Save social posts to Discord for inspiration.",
+    "permissions": [
+        "storage",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "https://*.twitter.com/*",
+        "https://*.x.com/*",
+        "https://*.instagram.com/*",
+        "https://*.facebook.com/*",
+        "https://*.linkedin.com/*",
+        "https://dribbble.com/*"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "options_ui": {
+        "page": "options.html",
+        "open_in_tab": false
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*.twitter.com/*",
+                "https://*.x.com/*",
+                "https://*.instagram.com/*",
+                "https://*.facebook.com/*",
+                "https://*.linkedin.com/*",
+                "https://dribbble.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "content.css"
+            ]
+        }
+    ],
+    "commands": {
+        "save-post": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+S",
+                "mac": "Command+Shift+S"
+            },
+            "description": "Save current post to Discord"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    }
+}

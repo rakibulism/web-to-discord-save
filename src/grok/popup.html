@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Popup</title>
+    </head>
+
+    <body>
+        <h1>Save to Discord</h1>
+        <p>Use hover or Ctrl+Shift+S on pages.</p>
+        <button id="openOptions">Options</button>
+        <script>
+            document.getElementById( 'openOptions' ).onclick = () =>
+            {
+                chrome.runtime.openOptionsPage();
+            };
+        </script>
+    </body>
+
+</html>

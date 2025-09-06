@@ -1,0 +1,255 @@
+/* Content script styles for hover buttons and modal */
+.web-to-discord-save-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #5865f2;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    z-index: 10000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.web-to-discord-save-btn:hover {
+    background: #4752c4;
+    transform: scale(1.1);
+}
+
+.web-to-discord-save-btn.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.web-to-discord-save-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Post container hover detection */
+.web-to-discord-post-container {
+    position: relative;
+}
+
+.web-to-discord-post-container:hover .web-to-discord-save-btn {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Modal overlay */
+.web-to-discord-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.web-to-discord-modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.web-to-discord-modal {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.web-to-discord-modal-overlay.visible .web-to-discord-modal {
+    transform: scale(1);
+}
+
+.web-to-discord-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+.web-to-discord-modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c2f33;
+    margin: 0;
+}
+
+.web-to-discord-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #72767d;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.web-to-discord-modal-close:hover {
+    background: #f2f3f5;
+}
+
+.web-to-discord-keyword-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.web-to-discord-keyword-btn {
+    background: #f2f3f5;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c2f33;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.web-to-discord-keyword-btn:hover {
+    background: #e3e5e8;
+    border-color: #d1d9e0;
+}
+
+.web-to-discord-keyword-btn.selected {
+    background: #5865f2;
+    color: white;
+    border-color: #4752c4;
+}
+
+.web-to-discord-keyword-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.web-to-discord-keyword-btn.disabled:hover {
+    background: #f2f3f5;
+    border-color: transparent;
+}
+
+.web-to-discord-post-preview {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #e1e5e9;
+}
+
+.web-to-discord-post-preview-title {
+    font-weight: 600;
+    color: #2c2f33;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.web-to-discord-post-preview-author {
+    color: #72767d;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.web-to-discord-post-preview-description {
+    color: #2c2f33;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.web-to-discord-post-preview-url {
+    color: #5865f2;
+    font-size: 12px;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.web-to-discord-post-preview-url:hover {
+    text-decoration: underline;
+}
+
+.web-to-discord-modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.web-to-discord-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.web-to-discord-btn-secondary {
+    background: #f2f3f5;
+    color: #2c2f33;
+}
+
+.web-to-discord-btn-secondary:hover {
+    background: #e3e5e8;
+}
+
+.web-to-discord-btn-primary {
+    background: #5865f2;
+    color: white;
+}
+
+.web-to-discord-btn-primary:hover {
+    background: #4752c4;
+}
+
+.web-to-discord-btn-primary:disabled {
+    background: #99aab5;
+    cursor: not-allowed;
+}
+
+.web-to-discord-selection-info {
+    background: #e8f4fd;
+    border: 1px solid #b3d9ff;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #2c2f33;
+}
+
+.web-to-discord-selection-info strong {
+    color: #5865f2;
+}

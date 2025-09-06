@@ -1,0 +1,55 @@
+{
+    "manifest_version": 3,
+    "name": "Web to Discord Save",
+    "version": "1.0.0",
+    "description": "Save social media posts to Discord channels with keyword-based routing",
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://twitter.com/*",
+        "https://x.com/*",
+        "https://www.instagram.com/*",
+        "https://dribbble.com/*",
+        "https://www.facebook.com/*",
+        "https://www.linkedin.com/*",
+        "https://discord.com/*",
+        "https://discordapp.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://twitter.com/*",
+                "https://x.com/*",
+                "https://www.instagram.com/*",
+                "https://dribbble.com/*",
+                "https://www.facebook.com/*",
+                "https://www.linkedin.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "content.css"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "action": {
+        "default_title": "Web to Discord Save"
+    },
+    "commands": {
+        "save-post": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+S",
+                "mac": "Command+Shift+S"
+            },
+            "description": "Save current post to Discord"
+        }
+    },
+}

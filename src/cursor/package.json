@@ -1,0 +1,32 @@
+{
+    "name": "web-to-discord-save",
+    "version": "1.0.0",
+    "description": "Browser extension to save social media posts to Discord channels with keyword-based routing",
+    "main": "src/background.js",
+    "scripts": {
+        "build": "echo 'No build process needed for this extension'",
+        "package": "zip -r web-to-discord-save.zip . -x '*.git*' 'node_modules/*' '*.zip' 'package-lock.json'",
+        "dev": "echo 'Load the extension in Chrome/Edge developer mode'"
+    },
+    "keywords": [
+        "browser-extension",
+        "discord",
+        "social-media",
+        "bookmark",
+        "save",
+        "chrome-extension",
+        "firefox-extension"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/web-to-discord-save.git"
+    },
+    "bugs": {
+        "url": "https://github.com/yourusername/web-to-discord-save/issues"
+    },
+    "homepage": "https://github.com/yourusername/web-to-discord-save#readme",
+    "devDependencies": {},
+    "dependencies": {}
+}
