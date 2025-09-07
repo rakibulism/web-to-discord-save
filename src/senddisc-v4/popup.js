@@ -1,11 +1,33 @@
-document.getElementById( "saveChannel" ).addEventListener( "click", () =>
+document.addEventListener( "DOMContentLoaded", () =>
 {
-    const url = document.getElementById( "channelUrl" ).value;
-    if ( url )
+    const webhookInput = document.getElementById( "webhook" );
+    const channelInput = document.getElementById( "defaultChannel" );
+    const saveBtn = document.getElementById( "save" );
+    const status = document.getElementById( "status" );
+
+    // Load saved settings
+    chrome.storage.sync.get( [ "webhook", "defaultChannel" ], ( data ) =>
     {
-        chrome.storage.sync.set( { defaultChannel: url }, () =>
+        if ( data.webhook ) webhookInput.value = data.webhook;
+        if ( data.defaultChannel ) channelInput.value = data.defaultChannel;
+    } );
+
+    // Save settings
+    saveBtn.addEventListener( "click", () =>
+    {
+        const webhook = webhookInput.value.trim();
+        const defaultChannel = channelInput.value.trim();
+
+        if ( !webhook )
         {
-            document.getElementById( "status" ).innerText = "Default channel saved ✅";
+            status.textContent = "⚠️ Please enter a webhook URL";
+            return;
+        }
+
+        chrome.storage.sync.set( { webhook, defaultChannel }, () =>
+        {
+            status.textContent = "✅ Settings saved!";
+            setTimeout( () => ( status.textContent = "" ), 2000 );
         } );
-    }
+    } );
 } );

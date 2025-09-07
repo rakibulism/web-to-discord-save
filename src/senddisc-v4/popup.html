@@ -2,14 +2,37 @@
 <html>
 
     <head>
-        <link rel="stylesheet" href="styles.css">
+        <title>Save to Discord</title>
+        <style>
+            body {
+                width: 280px;
+                padding: 12px;
+                font-family: Arial, sans-serif;
+            }
+
+            input,
+            select,
+            button {
+                width: 100%;
+                margin: 6px 0;
+                padding: 8px;
+                font-size: 14px;
+            }
+        </style>
     </head>
 
     <body>
-        <h3>Discord Saver</h3>
-        <label>Webhook URL: <input id="channelUrl" type="text" /></label>
-        <button id="saveChannel">Save Default Channel</button>
+        <h3>Discord Settings</h3>
+        <label>Webhook URL:</label>
+        <input type="text" id="webhook" placeholder="Enter Discord Webhook URL" />
+
+        <label>Default Channel Name:</label>
+        <input type="text" id="defaultChannel" placeholder="general" />
+
+        <button id="save">Save</button>
+
         <p id="status"></p>
+
         <script src="popup.js"></script>
     </body>
 
