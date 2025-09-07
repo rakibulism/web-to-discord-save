@@ -1,60 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Save to Discord</title>
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
-        <div class="container">
-            <h3>Save to Discord</h3>
-
-            <div id="pageInfo" class="block">
-                <div id="pageTitle" class="muted">loading title...</div>
-                <div id="pageUrl" class="muted small"></div>
-            </div>
-
-            <div class="block">
-                <label for="channelSelect">Channel</label>
-                <select id="channelSelect"></select>
-                <button id="manageChannels">Manage</button>
-            </div>
-
-            <div id="sendForm" class="block">
-                <label for="messageText">Message (optional)</label>
-                <textarea id="messageText" rows="3" placeholder="Add a comment..."></textarea>
-
-                <div class="row">
-                    <button id="sendBtn">Send</button>
-                    <button id="sendWithMediaBtn" title="Send page + media if any (content script only)">Send with
-                        media</button>
-                </div>
-            </div>
-
-            <hr />
-
-            <div id="channelsManager" class="block hidden">
-                <h4>Channels</h4>
-                <div id="channelsList"></div>
-
-                <div class="divider"></div>
-                <label for="newName">Name</label>
-                <input id="newName" placeholder="Channel name" />
-                <label for="newWebhook">Webhook URL</label>
-                <input id="newWebhook" placeholder="https://discord.com/api/webhooks/..." />
-
-                <div class="row">
-                    <button id="addChannel">Add channel</button>
-                    <button id="closeManager">Close</button>
-                </div>
-            </div>
-
-            <div id="status" class="muted small"></div>
-        </div>
-
+        <h3>Discord Saver</h3>
+        <label>Webhook URL: <input id="channelUrl" type="text" /></label>
+        <button id="saveChannel">Save Default Channel</button>
+        <p id="status"></p>
         <script src="popup.js"></script>
     </body>
 

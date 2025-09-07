@@ -1,121 +1,56 @@
-:root {
-    --bg: #0f0f12;
-    --card: #131316;
-    --muted: #c6c6c8;
-    --accent: #4ea8ff;
-    --danger: #ff6b6b;
+.discord-send-btn {
+    transition: opacity 0.2s ease-in-out;
 }
 
-body {
-    font-family: Inter, Roboto, Arial, sans-serif;
-    margin: 0;
+.discord-popover {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e1e1e;
+    color: #fff;
     padding: 12px;
-    width: 360px;
-    color: var(--muted);
-    background: linear-gradient(180deg, #0b0b0d, #0f0f12);
-}
-
-.container h3 {
-    margin: 0 0 8px 0;
-    color: white
-}
-
-.block {
-    margin-bottom: 10px
-}
-
-.muted {
-    color: #bfc3c8
-}
-
-.small {
-    font-size: 12px
-}
-
-label {
-    display: block;
-    font-size: 12px;
-    margin-bottom: 4px;
-    color: #9aa1a8
-}
-
-textarea,
-input,
-select {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 8px;
-    border-radius: 6px;
-    background: #0b0b0d;
-    border: 1px solid #232326;
-    color: var(--muted)
-}
-
-.row {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px
-}
-
-button {
-    padding: 8px 10px;
     border-radius: 8px;
-    border: 0;
-    cursor: pointer;
-    background: var(--accent);
-    color: #031027
+    width: 300px;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-button[title] {
-    font-size: 12px
+.discord-popover-header {
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
-#manageChannels {
-    background: #2e2e33;
-    color: var(--muted);
-    padding: 6px
+.discord-popover textarea {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 10px;
+    background: #2e2e2e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px;
+    resize: none;
 }
 
-.hidden {
-    display: none
-}
-
-#channelsList {
-    max-height: 160px;
-    overflow: auto;
-    margin-bottom: 8px
-}
-
-.channelRow {
+.discord-popover-actions {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 6px;
-    border-radius: 6px;
-    background: #0b0b0d;
-    margin-bottom: 6px;
-    border: 1px solid #222
 }
 
-.channelRow small {
-    color: #8f9398
+.discord-popover-actions button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.channelBtns button {
-    background: #222;
-    border: 0;
-    color: var(--muted);
-    padding: 6px;
-    margin-left: 6px;
-    border-radius: 6px
+#discord-send {
+    background: #5865f2;
+    color: #fff;
 }
 
-.divider {
-    height: 1px;
-    background: #232326;
-    margin: 8px 0
-}
-
-#status {
-    margin-top: 8px
+#discord-close {
+    background: #444;
+    color: #fff;
 }
