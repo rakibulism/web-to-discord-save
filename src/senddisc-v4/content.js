@@ -1,74 +1,45 @@
-// Add a hover "send" icon on images
-document.addEventListener( "mouseover", ( event ) =>
+function injectSendButton ( img )
 {
-    const target = event.target;
+    if ( img.dataset.discordHoverAdded ) return; // prevent duplicates
+    img.dataset.discordHoverAdded = "true";
 
-    if ( target.tagName === "IMG" && !target.dataset.discordHover )
+    const btn = document.createElement( "button" );
+    btn.textContent = "Send";
+    btn.style.position = "absolute";
+    btn.style.bottom = "8px";
+    btn.style.right = "8px";
+    btn.style.padding = "6px 10px";
+    btn.style.fontSize = "12px";
+    btn.style.background = "rgba(88, 101, 242, 0.9)";
+    btn.style.color = "#fff";
+    btn.style.border = "none";
+    btn.style.borderRadius = "4px";
+    btn.style.cursor = "pointer";
+    btn.style.display = "none";
+    btn.style.zIndex = "99999";
+
+    const wrapper = document.createElement( "div" );
+    wrapper.style.position = "relative";
+    img.parentNode.insertBefore( wrapper, img );
+    wrapper.appendChild( img );
+    wrapper.appendChild( btn );
+
+    wrapper.addEventListener( "mouseenter", () => ( btn.style.display = "block" ) );
+    wrapper.addEventListener( "mouseleave", () => ( btn.style.display = "none" ) );
+
+    btn.addEventListener( "click", () =>
     {
-        target.dataset.discordHover = "true";
-
-        const sendBtn = document.createElement( "div" );
-        sendBtn.innerText = "⇪"; // you can replace with an icon
-        sendBtn.className = "discord-send-btn";
-
-        // position inside image
-        sendBtn.style.position = "absolute";
-        sendBtn.style.top = "8px";
-        sendBtn.style.right = "8px";
-        sendBtn.style.background = "rgba(0,0,0,0.6)";
-        sendBtn.style.color = "#fff";
-        sendBtn.style.padding = "4px 6px";
-        sendBtn.style.cursor = "pointer";
-        sendBtn.style.fontSize = "14px";
-        sendBtn.style.borderRadius = "4px";
-        sendBtn.style.zIndex = "9999";
-
-        target.style.position = "relative"; // ensure positioning
-        target.parentElement.style.position = "relative";
-        target.parentElement.appendChild( sendBtn );
-
-        sendBtn.addEventListener( "click", () =>
-        {
-            showPopover( target.src );
+        chrome.runtime.sendMessage( {
+            action: "openPopover",
+            imageUrl: img.src
         } );
-    }
-} );
-
-function showPopover ( mediaUrl )
-{
-    // Remove existing
-    document.querySelectorAll( ".discord-popover" ).forEach( p => p.remove() );
-
-    const pop = document.createElement( "div" );
-    pop.className = "discord-popover";
-    pop.innerHTML = `
-    <div class="discord-popover-header">Save to Discord</div>
-    <textarea id="discord-comment" placeholder="Add a comment..."></textarea>
-    <div class="discord-popover-actions">
-      <button id="discord-send">Send</button>
-      <button id="discord-close">Close</button>
-    </div>
-  `;
-
-    document.body.appendChild( pop );
-
-    document.getElementById( "discord-close" ).onclick = () => pop.remove();
-    document.getElementById( "discord-send" ).onclick = () =>
-    {
-        const comment = document.getElementById( "discord-comment" ).value;
-        chrome.runtime.sendMessage(
-            { type: "SEND_TO_DISCORD", mediaUrl, pageUrl: location.href, comment },
-            ( res ) =>
-            {
-                if ( res?.error )
-                {
-                    alert( res.error );
-                } else
-                {
-                    alert( "Sent to Discord ✅" );
-                    pop.remove();
-                }
-            }
-        );
-    };
+    } );
 }
+
+// Scan for images dynamically
+const observer = new MutationObserver( () =>
+{
+    document.querySelectorAll( "img" ).forEach( injectSendButton );
+} );
+observer.observe( document.body, { childList: true, subtree: true } );
+document.querySelectorAll( "img" ).forEach( injectSendButton );
