@@ -9,7 +9,7 @@
 body {
     font-family: Inter, Roboto, Arial, sans-serif;
     margin: 0;
-    padding: 12px;
+    padding: 24px;
     width: 360px;
     color: var(--muted);
     background: linear-gradient(180deg, #0b0b0d, #0f0f12);
@@ -21,7 +21,7 @@ body {
 }
 
 .block {
-    margin-bottom: 10px
+    margin-bottom: 12px
 }
 
 .muted {
